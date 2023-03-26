@@ -1,8 +1,12 @@
-import Layout from "../../components/layout";
+import Layout, { LayoutProps } from "../../components/layout";
 import { getAllPostIds, getPostData } from "../../lib/posts";
 import Head from "next/head";
 import Date from "../../components/date";
 import utilStyles from "../../styles/utils.module.css";
+
+type PostProps = LayoutProps & {
+  postData: any;
+};
 
 export async function getStaticProps({ params }) {
   const postData = await getPostData(params.id);
@@ -21,9 +25,9 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Post({ postData }) {
+export default function Post({ postData }: PostProps) {
   return (
-    <Layout>
+    <Layout home>
       <Head>
         <title>{postData.title}</title>
       </Head>
